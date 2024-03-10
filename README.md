@@ -1,6 +1,6 @@
 **Tabla de contenido**
 
-- [Crear contenedores](#crear-contenedores)
+- [Comandos relacionados a contenedores](#comandos-relacionados-a-contenedores)
 - [Comandos de MySQL (Contenedor MySQL)](#comandos-de-mysql-contenedor-mysql)
   - [Scripts (Querys) MySQL](#scripts-querys-mysql)
 - [Comandos de Postgres (Contenedor Postgres)](#comandos-de-postgres-contenedor-postgres)
@@ -8,7 +8,7 @@
 
 ---
 
-### Crear contenedores
+### Comandos relacionados a contenedores
 
 - Comando para crear un contenedor MySQL
 
@@ -32,6 +32,18 @@ docker run --name mi_postgres -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres:
 
 ```bash
 docker run --name nombre_contenedor -it ubuntu bash
+```
+
+- Abrir contenedor de docker en `wsl` / `Powershell` / `cmd`
+
+```bash
+docker exec -it NOMBRE_DEL_CONTENEDOR /bin/bash
+```
+
+- Salir del contenedor en wsl / Powershell / cmd
+
+```bash
+exit
 ```
 
 ---
@@ -162,35 +174,54 @@ psql -h localhost -p 5432 -U postgres -d postgres
 
 ### Comandos de Ubuntu (Contenedor Ubuntu)
 
--- Comando para instalar PostgreSQL en Ubuntu
-apt-get install -y postgresql
+- Instalar MySQL en Ubuntu
 
--- Instalar el comando ping en ubuntu
-apt-get install -y inetutils-ping
-
--- Instalar el comando telnet en ubuntu
-apt-get install -y telnet
-
-telnet [hostname or IP address] [port]
-telnet 192.168.1.1 80
-
-telnet 172.17.0.2 3306
-
--- Instalar MySQL en Ubuntu
+```bash
 apt-get install mysql-client
+```
 
--- Conectar MySQL desde Ubuntu
+- Conectar MySQL desde Ubuntu
+
+Usando el puerto:
+
+```bash
 mysql -h 172.17.0.2 -p 3306 -u root -p
+```
+
+Usando solo el IP:
+
+```bash
 mysql -h 172.17.0.2 -u root -p
+```
 
+- Comando para instalar PostgreSQL en Ubuntu
 
+```bash
+apt-get install -y postgresql
+```
 
+- Instalar el comando ping en ubuntu
 
+```bash
+apt-get install -y inetutils-ping
+```
 
+- Instalar el comando telnet en ubuntu.
 
--- ===========================================================================
--- Abrir contenedor de docker en wsl / Powershell / cmd
-docker exec -it NOMBRE_DEL_CONTENEDOR /bin/bash
+```bash
+apt-get install -y telnet
+```
 
--- Salir del contenedor en wsl / Powershell / cmd
-exit
+- Utilizar el comando telnet.
+
+`telnet [hostname or IP address] [port]`
+
+Ejemplos:
+
+```bash
+telnet 192.168.1.1 80
+```
+
+```bash
+telnet 172.17.0.2 3306
+```
