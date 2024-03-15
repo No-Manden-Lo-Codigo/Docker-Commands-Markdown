@@ -4,7 +4,9 @@
 - [Comandos de MySQL (Contenedor MySQL)](#comandos-de-mysql-contenedor-mysql)
   - [Scripts (Querys) MySQL](#scripts-querys-mysql)
 - [Comandos de Postgres (Contenedor Postgres)](#comandos-de-postgres-contenedor-postgres)
+  - [Scripts (querys) Postgres](#scripts-querys-postgres)
 - [Comandos de Ubuntu (Contenedor Ubuntu)](#comandos-de-ubuntu-contenedor-ubuntu)
+  - [Logs](#logs)
 
 ---
 
@@ -172,6 +174,71 @@ psql -h localhost -p 5432 -U postgres -d postgres
 
 ---
 
+#### Scripts (querys) Postgres
+
+```postgres
+\c nombreBaseDatos
+```
+
+- esto cambia a la base de datos sin tener que salir y conectarse de nuevo al usuario.
+
+```postgres
+\dt
+```
+
+- lista las tablas de una base de datos
+
+Algunos ejemplos en postgres:
+
+```sql
+create table Productos(
+id_producto int primary key,
+nombre varchar(150),
+descripcion varchar(255),
+precio DECIMAL(10, 2)
+);
+
+create table cliente(
+id_cliente int primary key,
+nombre varchar(150),
+telefono varchar(20),
+correo varchar(150)
+);
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo)
+VALUES
+    (1, 'Ana López', '555-1234', 'ana.lopez@example.com'),
+    (2, 'Juan Martínez', '555-5678', 'juan.martinez@example.com'),
+    (3, 'María Rodríguez', '555-9876', 'maria.rodriguez@example.com'),
+    (4, 'Carlos García', '555-4321', 'carlos.garcia@example.com'),
+    (5, 'Laura Pérez', '555-8765', 'laura.perez@example.com');
+
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo) VALUES (1, 'Ana López', '555-1234', 'ana.lopez@example.com');
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo) VALUES (2, 'Juan Martínez', '555-5678', 'juan.martinez@example.com');
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo) VALUES (3, 'María Rodríguez', '555-9876', 'maria.rodriguez@example.com');
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo) VALUES (4, 'Carlos García', '555-4321', 'carlos.garcia@example.com');
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo) VALUES (5, 'Laura Pérez', '555-8765', 'laura.perez@example.com');
+
+
+
+INSERT INTO cliente (id_cliente, nombre, telefono, correo) VALUES (6, 'Laura Pérez', '555-8765', 'laura.perez@example.com'); 
+
+
+
+GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO rolewrite;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO roleread;
+
+```
+
+Nota: estos ejemplos ya fueron utilizados.
+
+---
+
 ### Comandos de Ubuntu (Contenedor Ubuntu)
 
 - Instalar MySQL en Ubuntu
@@ -225,3 +292,21 @@ telnet 192.168.1.1 80
 ```bash
 telnet 172.17.0.2 3306
 ```
+
+---
+
+#### Logs
+
+```bash
+docker logs nombreContenedor
+```
+
+- Este comando devuelve el log que tiene el contenedor.
+
+```bash
+docker logs PostgresCont1 > postgreslog.txt
+docker logs MySQLCont1 > mysqllog.txt
+docker logs UbuntuCont1 > ubuntulog.txt
+```
+
+- Este comando redirige el contenido del log a un archivo txt.
