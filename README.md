@@ -186,7 +186,33 @@ psql -h localhost -p 5432 -U postgres -d postgres
 \dt
 ```
 
-- lista las tablas de una base de datos
+- Lista las tablas de una base de datos
+
+```sql
+CREATE ROLE nombreRol;
+```
+
+- Crea un rol en Postgres.
+
+```sql
+CREATE USER nombreUsuario WITH PASSWORD 'contrasenia';
+```
+
+- Crea un usuario en Postgres.
+
+```sql
+GRANT nombreRol TO nombreUsuario;
+```
+
+- Le asigna un rol a un usuario.
+
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE ON ALL TABLES IN SCHEMA public to nombreRol;
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE ON ALL TABLES IN SCHEMA public to nombreUsuario;
+```
+
+- Le da permisos a un rol o a un usuario.
 
 Algunos ejemplos en postgres:
 
@@ -292,6 +318,62 @@ telnet 192.168.1.1 80
 ```bash
 telnet 172.17.0.2 3306
 ```
+
+```bash
+apt install -y openssh-client
+```
+
+- Instala ssh en el contenedor.
+
+```bash
+ssh clay@64.23.217.34
+```
+
+- Conecta a un servidor remoto por ssh. Para este ejemplo la clave era `1234`.
+
+```bash
+adduser nombreUsuario
+```
+
+- Crea un nuevo usuario en Ubuntu.
+
+```bash
+usermod -aG sudo nombreUsuario
+```
+
+- Darle privilegios de administrador a un usuario en Ubuntu.
+
+```bash
+su nombreUsuario
+```
+
+- su (switch user) cambia de usuario en Ubuntu.
+
+```bash
+su - nombreUsuario
+```
+
+- Cambia de usuario, pero cambia las variables de entorno entre otras cosas.
+
+Diferencias entre `su` y `su -`
+
+`su usuario`: Esta forma de usar el comando su cambia al usuario especificado, pero no cambia completamente el entorno del shell. Esto significa que algunas variables de entorno y configuraciones del shell pueden permanecer como estaban antes de ejecutar el comando su. Por ejemplo, el directorio de inicio (HOME) y la variable de entorno PATH pueden seguir siendo las del usuario original. Esto se conoce como un cambio de usuario "suave".
+
+`su - usuario`: En cambio, su - usuario cambia al usuario especificado y también inicializa el entorno del shell como si el usuario especificado hubiera iniciado sesión de manera normal. Esto incluye establecer el directorio de inicio (HOME) en el del usuario especificado y cargar las configuraciones de inicio del shell, como los archivos .bashrc, .bash_profile, etc. Esto se conoce como un cambio de usuario "duro".
+
+`su usuario` realiza un cambio de usuario sin cambiar completamente el entorno del shell, mientras que `su - usuario` realiza un cambio de usuario y establece completamente el entorno del shell como si el usuario especificado hubiera iniciado sesión normalmente.
+
+```bash
+deluser nombreUsuario
+```
+
+- Borrar un usuario.
+
+```bash
+deluser --remove-home nombreUsuario
+```
+
+- Esto elimina el usuario y su directorio de inicio, junto con todos los archivos y directorios asociados.
 
 ---
 
